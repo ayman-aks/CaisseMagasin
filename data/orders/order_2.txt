@@ -1,0 +1,11 @@
+===== TICKET DE CAISSE =====
+Commande ID : 2
+Produits :
+- Brie x1 : 9.75€
+- Lait entier x1 : 7.99€
+- Coca-Cola x1 : 12.45€
+- Pepsi x1 : 8.99€
+- Coca-Cola x100 : 1245.0€
+
+Total : 1284.18€
+============================

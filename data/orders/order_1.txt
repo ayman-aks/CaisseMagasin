@@ -1,0 +1,10 @@
+===== TICKET DE CAISSE =====
+Commande ID : 1
+Produits :
+- Coca-Cola : 12.45€
+- Sprite : 10.2€
+- Yaourt aux fruits : 3.45€
+- Ketchup : 2.85€
+
+Total : 28.95€
+============================

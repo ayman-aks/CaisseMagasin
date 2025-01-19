@@ -1,0 +1,8 @@
+===== TICKET DE CAISSE =====
+Commande ID : 4
+Produits :
+- Coca-Cola x24 : 298,80€
+- Lipton Ice Tea x22 : 126,50€
+
+Total : 425,30€
+============================

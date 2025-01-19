@@ -1,0 +1,8 @@
+===== TICKET DE CAISSE =====
+Commande ID : 3
+Produits :
+- Coca-Cola x37 : 463.84999999999997€
+- Mayonnaise x1 : 463.84999999999997€
+
+Total : 463.84999999999997€
+============================

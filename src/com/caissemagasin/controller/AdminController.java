@@ -3,6 +3,7 @@ package com.caissemagasin.controller;
 import com.caissemagasin.model.User;
 import com.caissemagasin.repository.LoginRepository;
 import com.caissemagasin.service.AdminService;
+import com.caissemagasin.vue.ConsoleUI;
 import com.caissemagasin.vue.DashboardAdminVue;
 
 public class AdminController {
@@ -11,7 +12,7 @@ public class AdminController {
 
     public void createUser() {
         DashboardAdminVue dashboardAdminVue = new DashboardAdminVue();
-        dashboardAdminVue.printMessage("\n=== Création d'un nouvel utilisateur ===");
+        ConsoleUI.printTitle("Création d'un nouvel utilisateur");
 
         String name = dashboardAdminVue.scanInput("Nom : ");
         String surname = dashboardAdminVue.scanInput("Prénom : ");

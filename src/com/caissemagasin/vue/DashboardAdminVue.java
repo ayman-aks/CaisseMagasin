@@ -22,17 +22,23 @@ public class DashboardAdminVue implements VueFunction {
 
     public void printMenuAdmin() {
         while (true) {
-            printMessage("\n==== MENU ADMIN ====");
-            printMessage("1. Créer un utilisateur");
-            printMessage("2. Modifier un utilisateur");
-            printMessage("3. Supprimer un utilisateur");
-            printMessage("4. Ajouter un produit");
-            printMessage("5. Modifier un produit");
-            printMessage("6. Supprimer un produit");
-            printMessage("7. Initier une commande");
-            printMessage("9. Déconnexion");
+            ConsoleUI.printTitle("MENU ADMINISTRATEUR");
 
-            String choix = scanInput("Choix : ");
+            printMessage(ConsoleUI.BLUE + "[1] Créer un utilisateur" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.BLUE + "[2] Modifier un utilisateur" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.BLUE + "[3] Supprimer un utilisateur" + ConsoleUI.RESET);
+
+            printMessage(ConsoleUI.CYAN + "[4] Ajouter un produit" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.CYAN + "[5] Modifier un produit" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.CYAN + "[6] Supprimer un produit" + ConsoleUI.RESET);
+
+            printMessage(ConsoleUI.YELLOW + "[7] Initier une commande" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.YELLOW + "[8] Rechercher une commande" + ConsoleUI.RESET);
+
+            printMessage(ConsoleUI.RED + "[9] Déconnexion" + ConsoleUI.RESET);
+
+            ConsoleUI.printSeparator();
+            String choix = scanInput(ConsoleUI.YELLOW + "Votre choix : " + ConsoleUI.RESET);
 
             switch (choix) {
                 case "1":
@@ -56,11 +62,13 @@ public class DashboardAdminVue implements VueFunction {
                 case "7":
                     orderController.initiateOrder();
                     break;
+                case "8":
+                    break;
                 case "9":
-                    printMessage("Déconnexion...");
+                    ConsoleUI.successMessage("Déconnexion réussie !");
                     return;
                 default:
-                    printMessage("Option non valide !");
+                    ConsoleUI.errorMessage("Option non valide !");
             }
         }
     }

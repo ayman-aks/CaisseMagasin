@@ -2,6 +2,9 @@ package com.caissemagasin.vue;
 
 import java.util.Scanner;
 
+import static com.caissemagasin.vue.ConsoleUI.GREEN;
+import static com.caissemagasin.vue.ConsoleUI.RESET;
+
 
 public interface VueFunction {
     Scanner scanner=new Scanner(System.in);
@@ -10,7 +13,7 @@ public interface VueFunction {
     }
 
     default String scanInput(String prompt) {
-        System.out.print(prompt);
+        System.out.print(GREEN+prompt+RESET);
         return scanner.nextLine();
     }
 }

@@ -3,6 +3,7 @@ package com.caissemagasin.controller;
 import com.caissemagasin.model.Order;
 import com.caissemagasin.model.Product;
 import com.caissemagasin.service.OrderService;
+import com.caissemagasin.vue.ConsoleUI;
 import com.caissemagasin.vue.DashboardAdminVue;
 
 import java.util.List;
@@ -13,10 +14,10 @@ public class OrderController {
     public void initiateOrder() {
         DashboardAdminVue dashboardAdminVue = new DashboardAdminVue();
         Order order = orderService.createNewOrder();
-        dashboardAdminVue.printMessage("\n=== Nouvelle commande initiée ===\n");
+        ConsoleUI.printTitle("NOUVELLE COMMANDE");
 
         while (true) {
-            String input = dashboardAdminVue.scanInput("\nEntrez un ID produit ou un nom (ou tapez 'fin' pour terminer) : ");
+            String input = dashboardAdminVue.scanInput("\n" + ConsoleUI.BLUE + "🔍 Recherchez un produit (nom ou ID) ou tapez 'fin' : " + ConsoleUI.RESET);
 
             if (input.equalsIgnoreCase("fin")) {
                 break;
@@ -26,9 +27,9 @@ public class OrderController {
                 if (product != null) {
                     int quantity = askForQuantity(dashboardAdminVue);
                     order.addProduct(product, quantity);
-                    dashboardAdminVue.printMessage(quantity + " x " + product.getName() + " ajouté/mis à jour dans la commande.");
+                    ConsoleUI.successMessage(quantity + " x " + product.getName() + " ajouté !");
                 } else {
-                    dashboardAdminVue.printMessage("Produit introuvable.");
+                    ConsoleUI.errorMessage("Produit introuvable.");
                 }
             } else {
                 int page = 0;
@@ -37,17 +38,18 @@ public class OrderController {
                     List<Product> products = orderService.searchProducts(input, page, pageSize);
 
                     if (products.isEmpty()) {
-                        dashboardAdminVue.printMessage("Aucun produit trouvé.");
+                        ConsoleUI.errorMessage("Aucun produit trouvé.");
                         break;
                     }
 
-                    dashboardAdminVue.printMessage("\n=== Résultats de la recherche ===");
+                    ConsoleUI.printSeparator();
+                    ConsoleUI.printTitle("Produits trouvés");
                     for (int i = 0; i < products.size(); i++) {
                         Product p = products.get(i);
-                        dashboardAdminVue.printMessage((i + 1) + ". " + p.getName() + " - " + p.getPrice() + "€");
+                        System.out.printf(ConsoleUI.YELLOW + "[%d] %s - %.2f€%n" + ConsoleUI.RESET, i + 1, p.getName(), p.getPrice());
                     }
 
-                    String choix = dashboardAdminVue.scanInput("Choisissez un produit (1-5) ou 'next' pour voir plus : ");
+                    String choix = dashboardAdminVue.scanInput(ConsoleUI.CYAN + "Choisissez un produit (1-5) ou 'next' : " + ConsoleUI.RESET);
                     if (choix.equalsIgnoreCase("next")) {
                         page++;
                         List<Product> nextPageProducts = orderService.searchProducts(input, page, pageSize);
@@ -60,13 +62,13 @@ public class OrderController {
                             Product selectedProduct = products.get(index);
                             int quantity = askForQuantity(dashboardAdminVue);
                             order.addProduct(selectedProduct, quantity);
-                            dashboardAdminVue.printMessage(quantity + " x " + selectedProduct.getName() + " ajouté/mis à jour dans la commande.");
+                            ConsoleUI.successMessage(quantity + " x " + selectedProduct.getName() + " ajouté !");
                         } else {
-                            dashboardAdminVue.printMessage("Choix invalide.");
+                            ConsoleUI.errorMessage("Choix invalide.");
                         }
                         break;
                     } else {
-                        dashboardAdminVue.printMessage("Commande annulée.");
+                        ConsoleUI.errorMessage("Commande annulée.");
                         break;
                     }
                 }
@@ -74,16 +76,16 @@ public class OrderController {
         }
 
         if (orderService.finalizeOrder(order)) {
-            dashboardAdminVue.printMessage("\n=== Commande enregistrée avec succès ===");
+            ConsoleUI.successMessage("Commande enregistrée avec succès !");
         } else {
-            dashboardAdminVue.printMessage("\n=== Erreur lors de l'enregistrement de la commande ===");
+            ConsoleUI.errorMessage("Erreur lors de l'enregistrement.");
         }
 
         dashboardAdminVue.printMenuAdmin();
     }
 
     private int askForQuantity(DashboardAdminVue dashboardAdminVue) {
-        String quantityInput = dashboardAdminVue.scanInput("Entrez la quantité (appuyez sur Entrée pour 1) : ");
+        String quantityInput = dashboardAdminVue.scanInput(ConsoleUI.CYAN + "Entrez la quantité (Entrée pour 1) : " + ConsoleUI.RESET);
         return quantityInput.isEmpty() ? 1 : Integer.parseInt(quantityInput);
     }
 }

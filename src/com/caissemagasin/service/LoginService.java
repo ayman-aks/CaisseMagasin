@@ -6,11 +6,12 @@ import com.caissemagasin.repository.LoginRepository;
 public class LoginService {
     private final LoginRepository loginRepository = new LoginRepository();
 
-    public User authenticationUser(String login, String password) {
-        User user = loginRepository.findByLogin(login);
-        if (user != null && user.getPassword().equals(password)) {
-            return user;
-        }
-        return null;
+    public boolean authenticationUser(User user, String password) {
+        return user != null && user.getPassword().equals(password);
+
+    }
+
+    public User isActive(String login) {
+        return loginRepository.findByLogin(login);
     }
 }

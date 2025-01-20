@@ -40,6 +40,9 @@ public class AdminRepository {
                 user.setSurname(updatedUser.getSurname());
                 user.setAdmin(updatedUser.getAdmin());
                 user.setActive(updatedUser.getActive());
+                if (updatedUser.getPassword()!=null) {
+                    user.setPassword(updatedUser.getPassword());
+                }
                 found = true;
                 break;
             }

@@ -6,11 +6,17 @@ import com.caissemagasin.controller.ProductController;
 import com.caissemagasin.model.User;
 
 public class DashboardAdminVue implements VueFunction {
-    private final AdminController adminController = new AdminController();
-    private final ProductController productController = new ProductController();
-    private final OrderController orderController = new OrderController();
+    private final AdminController adminController;
+    private final ProductController productController;
+    private final OrderController orderController;
 
     private User user;
+
+    public DashboardAdminVue(AdminController adminController, ProductController productController, OrderController orderController) {
+        this.adminController = adminController;
+        this.productController = productController;
+        this.orderController = orderController;
+    }
 
     public User getUser() {
         return user;
@@ -22,7 +28,7 @@ public class DashboardAdminVue implements VueFunction {
 
     public void printMenuAdmin() {
         while (true) {
-            ConsoleUI.printTitle("MENU ADMINISTRATEUR");
+            printTitle("MENU ADMINISTRATEUR");
 
             printMessage(ConsoleUI.BLUE + "[1] Créer un utilisateur" + ConsoleUI.RESET);
             printMessage(ConsoleUI.BLUE + "[2] Modifier un utilisateur" + ConsoleUI.RESET);
@@ -37,7 +43,7 @@ public class DashboardAdminVue implements VueFunction {
 
             printMessage(ConsoleUI.RED + "[9] Déconnexion" + ConsoleUI.RESET);
 
-            ConsoleUI.printSeparator();
+            printSeparator();
             String choix = scanInput(ConsoleUI.YELLOW + "Votre choix : " + ConsoleUI.RESET);
 
             switch (choix) {
@@ -60,15 +66,15 @@ public class DashboardAdminVue implements VueFunction {
                     productController.deleteProduct();
                     break;
                 case "7":
-                    orderController.initiateOrder();
+                    orderController.initiateOrder(user.getAdmin());
                     break;
                 case "8":
                     break;
                 case "9":
-                    ConsoleUI.successMessage("Déconnexion réussie !");
-                    return;
+                    successMessage("Déconnexion réussie !");
+                    System.exit(1);
                 default:
-                    ConsoleUI.errorMessage("Option non valide !");
+                    errorMessage("Option non valide !");
             }
         }
     }

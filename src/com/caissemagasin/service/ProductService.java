@@ -2,10 +2,15 @@ package com.caissemagasin.service;
 
 import com.caissemagasin.model.Product;
 import com.caissemagasin.repository.ProductRepository;
+
 import java.util.List;
 
 public class ProductService {
-    private final ProductRepository productRepository = new ProductRepository();
+    private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     private int getNextProductId() {
         List<Product> products = productRepository.searchProducts();

@@ -3,16 +3,21 @@ package com.caissemagasin.controller;
 import com.caissemagasin.model.User;
 import com.caissemagasin.repository.LoginRepository;
 import com.caissemagasin.service.AdminService;
-import com.caissemagasin.vue.ConsoleUI;
 import com.caissemagasin.vue.DashboardAdminVue;
 
 public class AdminController {
-    private final AdminService adminService = new AdminService();
-    private final LoginRepository loginRepository = new LoginRepository();
+    private AdminService adminService;
+    private LoginRepository loginRepository;
+    private DashboardAdminVue dashboardAdminVue;
+
+    public AdminController(AdminService adminService, LoginRepository loginRepository) {
+        this.adminService = adminService;
+        this.loginRepository = loginRepository;
+        this.dashboardAdminVue=null;
+    }
 
     public void createUser() {
-        DashboardAdminVue dashboardAdminVue = new DashboardAdminVue();
-        ConsoleUI.printTitle("Création d'un nouvel utilisateur");
+        dashboardAdminVue.printTitle("Création d'un nouvel utilisateur");
 
         String name = dashboardAdminVue.scanInput("Nom : ");
         String surname = dashboardAdminVue.scanInput("Prénom : ");
@@ -31,14 +36,12 @@ public class AdminController {
         dashboardAdminVue.printMenuAdmin();
     }
 
-    public void updateUser() {
-        DashboardAdminVue dashboardAdminVue = new DashboardAdminVue();
+    public void updateUser()  {
         String login = dashboardAdminVue.scanInput("\nLogin de l'utilisateur à modifier : ");
-        User user=loginRepository.findByLogin(login);
-        if(user==null) {
+        User user = loginRepository.findByLogin(login);
+        if (user == null) {
             dashboardAdminVue.printMessage("\n=== Échec de la modification, utilisateur non trouvé ===");
-
-        }else {
+        } else {
             String name = dashboardAdminVue.scanInput("Nouveau nom : ");
             String surname = dashboardAdminVue.scanInput("Nouveau prénom : ");
             boolean isAdmin = dashboardAdminVue.scanInput("Est-ce un admin ? (true/false) : ").equalsIgnoreCase("true");
@@ -48,15 +51,14 @@ public class AdminController {
             dashboardAdminVue.printMessage("\n=== Utilisateur modifié avec succès ===");
         }
 
-
         dashboardAdminVue.printMenuAdmin();
     }
 
     public void deleteUser(DashboardAdminVue dashboardAdminVue) {
         String login = dashboardAdminVue.scanInput("\nLogin de l'utilisateur à supprimer : ");
         if (login.equals(dashboardAdminVue.getUser().getLogin())) {
-            dashboardAdminVue.printMessage("\n=== Echec de la suppression, vous pouvez pas vous auto-supprimé ===");
-        }else {
+            dashboardAdminVue.printMessage("\n=== Échec de la suppression, vous ne pouvez pas vous auto-supprimer ===");
+        } else {
             if (adminService.deleteUser(login)) {
                 dashboardAdminVue.printMessage("\n=== Utilisateur supprimé avec succès ===");
             } else {
@@ -65,5 +67,9 @@ public class AdminController {
         }
 
         dashboardAdminVue.printMenuAdmin();
+    }
+
+    public void setDashboardAdminVue(DashboardAdminVue dashboardAdminVue) {
+        this.dashboardAdminVue=dashboardAdminVue;
     }
 }

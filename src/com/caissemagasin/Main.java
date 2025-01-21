@@ -1,16 +1,13 @@
 package com.caissemagasin;
 
-
+import com.caissemagasin.configuration.AppContext;
 import com.caissemagasin.vue.LoginVue;
 
 public class Main {
     public static void main(String[] args) {
-        runApplication();
+        AppContext appContext=AppContext.getInstance();
+        LoginVue loginVue = appContext.getLoginVue();
 
-    }
-
-    private static void runApplication() {
-        LoginVue loginVue = new LoginVue();
         loginVue.launchMenu();
     }
 }

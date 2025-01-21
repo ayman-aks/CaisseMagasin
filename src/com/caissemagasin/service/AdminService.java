@@ -7,8 +7,13 @@ import com.caissemagasin.repository.LoginRepository;
 import java.util.List;
 
 public class AdminService {
-    private final LoginRepository loginRepository = new LoginRepository();
-    private final AdminRepository adminRepository = new AdminRepository();
+    private final LoginRepository loginRepository;
+    private final AdminRepository adminRepository;
+
+    public AdminService(LoginRepository loginRepository, AdminRepository adminRepository) {
+        this.loginRepository = loginRepository;
+        this.adminRepository = adminRepository;
+    }
 
     private int getNextUserId() {
         List<User> users = loginRepository.searchUsers();

@@ -12,19 +12,49 @@ import java.util.List;
 import java.util.Map;
 
 import static com.caissemagasin.vue.ConsoleUI.*;
-
+/**
+ * Controller class to handle operations related to orders within the application.
+ * It bridges the interaction between models, views, and services.
+ */
 public class OrderController {
+    /**
+     * Service to handle business logic related to orders.
+     */
     private OrderService orderService;
+
+    /**
+     * View for displaying order-related information to the user.
+     */
     private OrderVue orderVue;
+
+    /**
+     * View for the admin dashboard.
+     */
     private DashboardAdminVue dashboardAdminVue;
+
+    /**
+     * View for the user dashboard.
+     */
     private DashboardUserVue dashboardUserVue;
 
+    /**
+     * Constructs an OrderController with a given order service.
+     *
+     * @param orderService Service to manage orders and related operations.
+     */
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
         this.orderVue = null;
         this.dashboardAdminVue = null;
         this.dashboardUserVue = null;
     }
+
+    /**
+     * Starts the order creation process for a given user.
+     * Allows the user to search for products, add them to an order, and finalize the order.
+     *
+     * @param user The user initiating the order (can be admin or regular user).
+     */
 
     public void initiateOrder(User user) {
         Order order = orderService.createNewOrder();
@@ -114,11 +144,23 @@ public class OrderController {
         }
     }
 
+    /**
+     * Prompts the user to input a quantity for a selected product.
+     * Defaults to 1 if no input is provided.
+     *
+     * @return The quantity specified by the user, or 1 if left empty.
+     */
     private int askForQuantity() {
         String quantityInput = orderVue.scanInput(CYAN + "Entrez la quantité (Entrée pour 1) : " + RESET);
         return quantityInput.isEmpty() ? 1 : Integer.parseInt(quantityInput);
     }
 
+    /**
+     * Allows the user to search for an existing order by its ID.
+     * Displays the details of the order if found.
+     *
+     * @param user The user performing the search (can be admin or regular user).
+     */
     public void searchOrder(User user) {
         orderVue.printTitle("Rechercher une commande");
         String input = orderVue.scanInput("\n" + BLUE + "🔍 Recherchez une commande par son ID :" + RESET);
@@ -136,14 +178,29 @@ public class OrderController {
         }
     }
 
+    /**
+     * Sets the view for order-related interactions.
+     *
+     * @param orderVue The view to use for displaying order-related information.
+     */
     public void setOrderVue(OrderVue orderVue) {
         this.orderVue = orderVue;
     }
 
+    /**
+     * Sets the view for the admin dashboard.
+     *
+     * @param dashboardAdminVue The view to use for the admin dashboard.
+     */
     public void setDashboardAdminVue(DashboardAdminVue dashboardAdminVue) {
         this.dashboardAdminVue = dashboardAdminVue;
     }
 
+    /**
+     * Sets the view for the user dashboard.
+     *
+     * @param dashboardUserVue The view to use for the user dashboard.
+     */
     public void setDashboardUserVue(DashboardUserVue dashboardUserVue) {
         this.dashboardUserVue = dashboardUserVue;
     }

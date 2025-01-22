@@ -1,0 +1,7 @@
+com.caissemagasin
+com.caissemagasin.configuration
+com.caissemagasin.controller
+com.caissemagasin.model
+com.caissemagasin.repository
+com.caissemagasin.service
+com.caissemagasin.vue

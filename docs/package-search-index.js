@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.caissemagasin"},{"l":"com.caissemagasin.configuration"},{"l":"com.caissemagasin.controller"},{"l":"com.caissemagasin.model"},{"l":"com.caissemagasin.repository"},{"l":"com.caissemagasin.service"},{"l":"com.caissemagasin.vue"}];updateSearchResults();

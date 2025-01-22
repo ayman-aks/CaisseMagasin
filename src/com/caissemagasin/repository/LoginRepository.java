@@ -40,7 +40,7 @@ public class LoginRepository {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error reading the file: " + e.getMessage());
+            System.out.println("Erreur de lecture du fichier : " + e.getMessage());
         }
         return users;
     }

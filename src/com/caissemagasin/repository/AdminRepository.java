@@ -24,7 +24,7 @@ public class AdminRepository {
 
         for (User u : users) {
             if (u.getLogin().equalsIgnoreCase(user.getLogin())) {
-                System.out.println("Error: A user with this login already exists!");
+                System.out.println("Erreur : Un utilisateur avec ce login existe déjà !");
                 return false;
             }
         }
@@ -36,7 +36,7 @@ public class AdminRepository {
             bw.newLine();
             return true;
         } catch (IOException e) {
-            System.out.println("Error writing to CSV file: " + e.getMessage());
+            System.out.println("Erreur d'écriture dans le fichier CSV : " + e.getMessage());
             return false;
         }
     }
@@ -104,7 +104,7 @@ public class AdminRepository {
             }
             return true;
         } catch (IOException e) {
-            System.out.println("Error updating CSV file: " + e.getMessage());
+            System.out.println("Erreur de mise à jour du fichier CSV : " + e.getMessage());
             return false;
         }
     }

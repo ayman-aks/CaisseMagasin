@@ -36,25 +36,25 @@ public class DashboardAdminVue extends DashboardVue implements VueFunction {
      */
     public void printMenuAdmin() {
         while (true) {
-            printTitle("ADMINISTRATOR MENU");
+            printTitle("MENU ADMINISTRATEUR");
 
-            printMessage(ConsoleUI.BLUE + "[1] Create a user" + ConsoleUI.RESET);
-            printMessage(ConsoleUI.BLUE + "[2] Update a user" + ConsoleUI.RESET);
-            printMessage(ConsoleUI.BLUE + "[3] Delete a user" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.BLUE + "[1] Créer un utilisateur" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.BLUE + "[2] Modifier un utilisateur" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.BLUE + "[3] Supprimer un utilisateur" + ConsoleUI.RESET);
 
-            printMessage(ConsoleUI.CYAN + "[4] Add a product" + ConsoleUI.RESET);
-            printMessage(ConsoleUI.CYAN + "[5] Update a product" + ConsoleUI.RESET);
-            printMessage(ConsoleUI.CYAN + "[6] Delete a product" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.CYAN + "[4] Ajouter un produit" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.CYAN + "[5] Modifier un produit" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.CYAN + "[6] Supprimer un produit" + ConsoleUI.RESET);
 
-            printMessage(ConsoleUI.YELLOW + "[7] Initiate an order" + ConsoleUI.RESET);
-            printMessage(ConsoleUI.YELLOW + "[8] Search for an order" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.YELLOW + "[7] Initier une commande" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.YELLOW + "[8] Rechercher une commande" + ConsoleUI.RESET);
 
-            printMessage(ConsoleUI.RED + "[9] Logout" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.RED + "[9] Déconnexion" + ConsoleUI.RESET);
 
             printSeparator();
-            String choice = scanInput(ConsoleUI.YELLOW + "Your choice: " + ConsoleUI.RESET);
+            String choix = scanInput(ConsoleUI.YELLOW + "Votre choix : " + ConsoleUI.RESET);
 
-            switch (choice) {
+            switch (choix) {
                 case "1":
                     adminController.createUser();
                     break;
@@ -80,10 +80,10 @@ public class DashboardAdminVue extends DashboardVue implements VueFunction {
                     orderController.searchOrder(user);
                     break;
                 case "9":
-                    successMessage("Logout successful!");
+                    successMessage("Déconnexion réussie !");
                     System.exit(1);
                 default:
-                    errorMessage("Invalid option!");
+                    errorMessage("Option non valide !");
             }
         }
     }

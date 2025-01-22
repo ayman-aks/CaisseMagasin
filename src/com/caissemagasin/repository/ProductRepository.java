@@ -34,7 +34,7 @@ public class ProductRepository {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error reading the product file: " + e.getMessage());
+            System.out.println("Erreur de lecture du fichier produits : " + e.getMessage());
         }
         return products;
     }
@@ -51,7 +51,7 @@ public class ProductRepository {
 
         for (Product p : products) {
             if (p.getName().equalsIgnoreCase(product.getName())) {
-                System.out.println("Error: A product with this name already exists!");
+                System.out.println("Erreur : Un produit avec ce nom existe déjà !");
                 return false;
             }
         }
@@ -62,7 +62,7 @@ public class ProductRepository {
             bw.newLine();
             return true;
         } catch (IOException e) {
-            System.out.println("Error writing to the product file: " + e.getMessage());
+            System.out.println("Erreur d'écriture dans le fichier produits : " + e.getMessage());
             return false;
         }
     }
@@ -126,7 +126,7 @@ public class ProductRepository {
             }
             return true;
         } catch (IOException e) {
-            System.out.println("Error updating the product file: " + e.getMessage());
+            System.out.println("Erreur de mise à jour du fichier produits : " + e.getMessage());
             return false;
         }
     }

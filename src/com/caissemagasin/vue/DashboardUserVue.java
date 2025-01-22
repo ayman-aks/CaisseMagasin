@@ -28,16 +28,16 @@ public class DashboardUserVue extends DashboardVue implements VueFunction {
      */
     public void printMenuUser() {
         while (true) {
-            printTitle("USER MENU");
-            printMessage(ConsoleUI.YELLOW + "[1] Initiate an order" + ConsoleUI.RESET);
-            printMessage(ConsoleUI.YELLOW + "[2] Search for an order" + ConsoleUI.RESET);
+            printTitle("MENU User");
+            printMessage(ConsoleUI.YELLOW + "[1] Initier une commande" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.YELLOW + "[2] Rechercher une commande" + ConsoleUI.RESET);
 
-            printMessage(ConsoleUI.RED + "[3] Logout" + ConsoleUI.RESET);
+            printMessage(ConsoleUI.RED + "[3] Déconnexion" + ConsoleUI.RESET);
 
             printSeparator();
-            String choice = scanInput(ConsoleUI.YELLOW + "Your choice: " + ConsoleUI.RESET);
+            String choix = scanInput(ConsoleUI.YELLOW + "Votre choix : " + ConsoleUI.RESET);
 
-            switch (choice) {
+            switch (choix) {
                 case "1":
                     orderController.initiateOrder(user);
                     break;
@@ -45,10 +45,10 @@ public class DashboardUserVue extends DashboardVue implements VueFunction {
                     orderController.searchOrder(user);
                     break;
                 case "3":
-                    successMessage("Logout successful!");
+                    successMessage("Déconnexion réussie !");
                     System.exit(1);
                 default:
-                    errorMessage("Invalid option!");
+                    errorMessage("Option non valide !");
             }
         }
     }

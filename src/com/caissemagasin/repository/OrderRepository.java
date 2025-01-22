@@ -58,7 +58,7 @@ public class OrderRepository {
             bw.write("============================");
             return true;
         } catch (IOException e) {
-            System.out.println("Error writing order file: " + e.getMessage());
+            System.out.println("Erreur d'écriture du fichier commande : " + e.getMessage());
             return false;
         }
     }
@@ -79,7 +79,7 @@ public class OrderRepository {
                 order += line + "\n";
             }
         } catch (IOException e) {
-            System.out.println("Error reading order file: " + e.getMessage());
+            System.out.println("Erreur de lecture du fichier produits : " + e.getMessage());
         }
         if (order.isBlank()) {
             return null;

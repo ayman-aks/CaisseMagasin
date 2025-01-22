@@ -2,8 +2,9 @@ package com.caissemagasin.vue;
 
 import com.caissemagasin.model.User;
 
-public class OrderVue implements VueFunction{
-    private User user;
+public abstract class DashboardVue {
+    protected User user;
+
     public User getUser() {
         return user;
     }

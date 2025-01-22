@@ -3,27 +3,16 @@ package com.caissemagasin.vue;
 import com.caissemagasin.controller.AdminController;
 import com.caissemagasin.controller.OrderController;
 import com.caissemagasin.controller.ProductController;
-import com.caissemagasin.model.User;
 
-public class DashboardAdminVue implements VueFunction {
+public class DashboardAdminVue extends DashboardVue implements VueFunction{
     private final AdminController adminController;
     private final ProductController productController;
     private final OrderController orderController;
-
-    private User user;
 
     public DashboardAdminVue(AdminController adminController, ProductController productController, OrderController orderController) {
         this.adminController = adminController;
         this.productController = productController;
         this.orderController = orderController;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public void printMenuAdmin() {
@@ -66,9 +55,10 @@ public class DashboardAdminVue implements VueFunction {
                     productController.deleteProduct();
                     break;
                 case "7":
-                    orderController.initiateOrder(user.getAdmin());
+                    orderController.initiateOrder(user);
                     break;
                 case "8":
+                    orderController.searchOrder(user);
                     break;
                 case "9":
                     successMessage("Déconnexion réussie !");

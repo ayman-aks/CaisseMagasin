@@ -2,6 +2,7 @@ package com.caissemagasin.service;
 
 import com.caissemagasin.model.Order;
 import com.caissemagasin.model.Product;
+import com.caissemagasin.model.User;
 import com.caissemagasin.repository.OrderRepository;
 import com.caissemagasin.repository.ProductRepository;
 
@@ -56,7 +57,11 @@ public class OrderService {
                 .orElse(null);
     }
 
-    public boolean finalizeOrder(Order order) {
-        return orderRepository.saveOrder(order);
+    public boolean finalizeOrder(Order order, User user) {
+        return orderRepository.saveOrder(order,user);
+    }
+
+    public String searchOrder(String id) {
+        return orderRepository.searchOrderById(id);
     }
 }

@@ -13,6 +13,7 @@ import com.caissemagasin.service.LoginService;
 import com.caissemagasin.service.OrderService;
 import com.caissemagasin.service.ProductService;
 import com.caissemagasin.vue.DashboardAdminVue;
+import com.caissemagasin.vue.DashboardUserVue;
 import com.caissemagasin.vue.LoginVue;
 import com.caissemagasin.vue.OrderVue;
 
@@ -37,6 +38,7 @@ public class AppContext {
     private final DashboardAdminVue dashboardAdminVue;
     private final LoginVue loginVue;
     private final OrderVue orderVue;
+    private final DashboardUserVue dashboardUserVue;
 
     private AppContext() {
         this.adminRepository = new AdminRepository();
@@ -57,6 +59,7 @@ public class AppContext {
         this.dashboardAdminVue = new DashboardAdminVue(this.adminController,this.productController,this.orderController);
         this.loginVue = new LoginVue(this.loginController);
         this.orderVue=  new OrderVue();
+        this.dashboardUserVue= new DashboardUserVue(this.orderController);
 
         hydrateViews();
     }
@@ -68,72 +71,18 @@ public class AppContext {
         return instance;
     }
 
-    public AdminController getAdminController() {
-        return adminController;
-    }
-
-    public LoginController getLoginController() {
-        return loginController;
-    }
-
-    public OrderController getOrderController() {
-        return orderController;
-    }
-
-    public ProductController getProductController() {
-        return productController;
-    }
-
-    public AdminService getAdminService() {
-        return adminService;
-    }
-
-    public LoginRepository getLoginRepository() {
-        return loginRepository;
-    }
-
-    public OrderRepository getOrderRepository() {
-        return orderRepository;
-    }
-
-    public AdminRepository getAdminRepository() {
-        return adminRepository;
-    }
-
-    public ProductRepository getProductRepository() {
-        return productRepository;
-    }
-
-    public LoginService getLoginService() {
-        return loginService;
-    }
-
-    public OrderService getOrderService() {
-        return orderService;
-    }
-
-    public ProductService getProductService() {
-        return productService;
-    }
-
-    public DashboardAdminVue getDashboardAdminVue() {
-        return dashboardAdminVue;
-    }
-
     public LoginVue getLoginVue() {
         return loginVue;
-    }
-
-    public OrderVue getOrderVue() {
-        return orderVue;
     }
 
     private void hydrateViews() {
         this.adminController.setDashboardAdminVue(this.dashboardAdminVue);
         this.loginController.setLoginVue(this.loginVue);
         this.loginController.setDashboardAdminVue(this.dashboardAdminVue);
+        this.loginController.setDashboardUserVue(this.dashboardUserVue);
         this.orderController.setOrderVue(this.orderVue);
         this.orderController.setDashboardAdminVue(this.dashboardAdminVue);
+        this.orderController.setDashboardUserVue(this.dashboardUserVue);
         this.productController.setDashboardAdminVue(this.dashboardAdminVue);
     }
 }

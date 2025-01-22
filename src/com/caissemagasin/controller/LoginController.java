@@ -3,21 +3,23 @@ package com.caissemagasin.controller;
 import com.caissemagasin.model.User;
 import com.caissemagasin.service.AdminService;
 import com.caissemagasin.service.LoginService;
-import com.caissemagasin.vue.ConsoleUI;
 import com.caissemagasin.vue.DashboardAdminVue;
+import com.caissemagasin.vue.DashboardUserVue;
 import com.caissemagasin.vue.LoginVue;
 
 public class LoginController {
-    private  LoginService loginService;
-    private  LoginVue loginVue;
-    private  DashboardAdminVue dashboardAdminVue;
-    private  AdminService adminService;
+    private LoginService loginService;
+    private LoginVue loginVue;
+    private DashboardAdminVue dashboardAdminVue;
+    private DashboardUserVue dashboardUserVue;
+    private AdminService adminService;
 
     public LoginController(LoginService loginService, AdminService adminService) {
         this.loginService = loginService;
         this.adminService = adminService;
         this.loginVue = null;
         this.dashboardAdminVue = null;
+        this.dashboardUserVue = null;
     }
 
     public void doLogin() {
@@ -56,8 +58,8 @@ public class LoginController {
             dashboardAdminVue.setUser(user);
             dashboardAdminVue.printMenuAdmin();
         } else {
-            //A changer après implémentation du user
-            loginVue.printMessage("Utilisateur standard, accès limité.");
+            dashboardUserVue.setUser(user);
+            dashboardUserVue.printMenuUser();
         }
     }
 
@@ -67,5 +69,9 @@ public class LoginController {
 
     public void setLoginVue(LoginVue loginVue) {
         this.loginVue = loginVue;
+    }
+
+    public void setDashboardUserVue(DashboardUserVue dashboardUserVue) {
+        this.dashboardUserVue = dashboardUserVue;
     }
 }

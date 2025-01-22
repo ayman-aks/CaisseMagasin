@@ -17,7 +17,7 @@ public class ProductController {
     }
 
     public void createProduct() {
-        dashboardAdminVue.successMessage("Création d'un nouveau produit");
+        dashboardAdminVue.printTitle("Création d'un nouveau produit");
 
         String name = dashboardAdminVue.scanInput("Nom du produit : ");
         double price = Double.parseDouble(dashboardAdminVue.scanInput("Prix du produit : "));
@@ -34,6 +34,7 @@ public class ProductController {
     }
 
     public void updateProduct() {
+        dashboardAdminVue.printTitle("Modification d'un produit");
         String name = dashboardAdminVue.scanInput("\nNom du produit à modifier : ");
         Product product = productRepository.findByName(name);
         if (product == null) {
@@ -49,6 +50,7 @@ public class ProductController {
     }
 
     public void deleteProduct() {
+        dashboardAdminVue.printTitle("Suppression d'un produit");
         String name = dashboardAdminVue.scanInput("\nNom du produit à supprimer : ");
 
         if (productService.deleteProduct(name)) {

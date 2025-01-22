@@ -4,17 +4,36 @@ import com.caissemagasin.controller.AdminController;
 import com.caissemagasin.controller.OrderController;
 import com.caissemagasin.controller.ProductController;
 
-public class DashboardAdminVue extends DashboardVue implements VueFunction{
+/**
+ * The DashboardAdminVue class represents the admin dashboard interface in the console application.
+ * It handles displaying the menu options for administrators and invoking the corresponding actions
+ * through the provided controllers.
+ * 
+ * This class extends {@link DashboardVue} and implements {@link VueFunction}.
+ */
+public class DashboardAdminVue extends DashboardVue implements VueFunction {
+
     private final AdminController adminController;
     private final ProductController productController;
     private final OrderController orderController;
 
+    /**
+     * Constructs a new instance of DashboardAdminVue with the given controllers.
+     * 
+     * @param adminController The controller for managing users.
+     * @param productController The controller for managing products.
+     * @param orderController The controller for managing orders.
+     */
     public DashboardAdminVue(AdminController adminController, ProductController productController, OrderController orderController) {
         this.adminController = adminController;
         this.productController = productController;
         this.orderController = orderController;
     }
 
+    /**
+     * Displays the admin menu and allows the admin to select various actions such as
+     * creating, modifying, or deleting users and products, as well as initiating and searching for orders.
+     */
     public void printMenuAdmin() {
         while (true) {
             printTitle("MENU ADMINISTRATEUR");

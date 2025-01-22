@@ -5,17 +5,33 @@ import com.caissemagasin.repository.LoginRepository;
 import com.caissemagasin.service.AdminService;
 import com.caissemagasin.vue.DashboardAdminVue;
 
+/**
+ * The AdminController class manages administrative actions such as creating, updating,
+ * and deleting users. It interacts with the AdminService and LoginRepository for data operations
+ * and communicates with the DashboardAdminVue for user input and output.
+ */
 public class AdminController {
+
     private AdminService adminService;
     private LoginRepository loginRepository;
     private DashboardAdminVue dashboardAdminVue;
 
+    /**
+     * Constructs an AdminController with the specified service and repository dependencies.
+     *
+     * @param adminService    the service responsible for user-related operations
+     * @param loginRepository the repository responsible for accessing user data
+     */
     public AdminController(AdminService adminService, LoginRepository loginRepository) {
         this.adminService = adminService;
         this.loginRepository = loginRepository;
-        this.dashboardAdminVue=null;
+        this.dashboardAdminVue = null;
     }
 
+    /**
+     * Creates a new user based on input provided by the DashboardAdminVue.
+     * Validates if the login is unique before saving the user.
+     */
     public void createUser() {
         dashboardAdminVue.printTitle("Création d'un nouvel utilisateur");
 
@@ -36,7 +52,11 @@ public class AdminController {
         dashboardAdminVue.printMenuAdmin();
     }
 
-    public void updateUser()  {
+    /**
+     * Updates the details of an existing user based on input provided by the DashboardAdminVue.
+     * If the user is not found, an error message is displayed.
+     */
+    public void updateUser() {
         String login = dashboardAdminVue.scanInput("\nLogin de l'utilisateur à modifier : ");
         User user = loginRepository.findByLogin(login);
         if (user == null) {
@@ -54,6 +74,12 @@ public class AdminController {
         dashboardAdminVue.printMenuAdmin();
     }
 
+    /**
+     * Deletes a user based on their login, provided by the DashboardAdminVue.
+     * Prevents the current user from self-deletion.
+     *
+     * @param dashboardAdminVue the view instance used for input and output
+     */
     public void deleteUser(DashboardAdminVue dashboardAdminVue) {
         String login = dashboardAdminVue.scanInput("\nLogin de l'utilisateur à supprimer : ");
         if (login.equals(dashboardAdminVue.getUser().getLogin())) {
@@ -69,7 +95,12 @@ public class AdminController {
         dashboardAdminVue.printMenuAdmin();
     }
 
+    /**
+     * Sets the DashboardAdminVue instance for this controller.
+     *
+     * @param dashboardAdminVue the view instance to be set
+     */
     public void setDashboardAdminVue(DashboardAdminVue dashboardAdminVue) {
-        this.dashboardAdminVue=dashboardAdminVue;
+        this.dashboardAdminVue = dashboardAdminVue;
     }
 }

@@ -1,21 +1,47 @@
+
 package com.caissemagasin.controller;
 
 import com.caissemagasin.model.Product;
 import com.caissemagasin.repository.ProductRepository;
 import com.caissemagasin.service.ProductService;
 import com.caissemagasin.vue.DashboardAdminVue;
-
+/**
+ * Controller class to manage product-related operations within the application.
+ * This class serves as a bridge between the product service, repository, and admin dashboard view.
+ */
 public class ProductController {
-    private  ProductService productService;
-    private  ProductRepository productRepository;
-    private  DashboardAdminVue dashboardAdminVue;
 
+    /**
+     * Service for managing product-related business logic.
+     */
+    private ProductService productService;
+
+    /**
+     * Repository for accessing product data.
+     */
+    private ProductRepository productRepository;
+
+    /**
+     * View for displaying the admin dashboard interface.
+     */
+    private DashboardAdminVue dashboardAdminVue;
+
+    /**
+     * Constructor for initializing the ProductController with required services and repositories.
+     *
+     * @param productService    Service for product management.
+     * @param productRepository Repository for product data access.
+     */
     public ProductController(ProductService productService, ProductRepository productRepository) {
         this.productService = productService;
         this.productRepository = productRepository;
         this.dashboardAdminVue = null;
     }
 
+    /**
+     * Handles the creation of a new product by collecting input from the admin
+     * and using the ProductService to save the product.
+     */
     public void createProduct() {
         dashboardAdminVue.printTitle("Création d'un nouveau produit");
 
@@ -33,6 +59,10 @@ public class ProductController {
         dashboardAdminVue.printMenuAdmin();
     }
 
+    /**
+     * Handles the update of an existing product. It retrieves the product by name,
+     * collects new details from the admin, and updates the product.
+     */
     public void updateProduct() {
         dashboardAdminVue.printTitle("Modification d'un produit");
         String name = dashboardAdminVue.scanInput("\nNom du produit à modifier : ");
@@ -49,6 +79,10 @@ public class ProductController {
         dashboardAdminVue.printMenuAdmin();
     }
 
+    /**
+     * Handles the deletion of a product by its name. It interacts with the ProductService
+     * to perform the deletion and displays appropriate feedback.
+     */
     public void deleteProduct() {
         dashboardAdminVue.printTitle("Suppression d'un produit");
         String name = dashboardAdminVue.scanInput("\nNom du produit à supprimer : ");
@@ -62,6 +96,11 @@ public class ProductController {
         dashboardAdminVue.printMenuAdmin();
     }
 
+    /**
+     * Sets the admin dashboard view for the controller.
+     *
+     * @param dashboardAdminVue View for the admin dashboard.
+     */
     public void setDashboardAdminVue(DashboardAdminVue dashboardAdminVue) {
         this.dashboardAdminVue = dashboardAdminVue;
     }

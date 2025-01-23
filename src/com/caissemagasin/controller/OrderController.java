@@ -4,8 +4,6 @@ import com.caissemagasin.model.Order;
 import com.caissemagasin.model.Product;
 import com.caissemagasin.model.User;
 import com.caissemagasin.service.OrderService;
-import com.caissemagasin.vue.DashboardAdminVue;
-import com.caissemagasin.vue.DashboardUserVue;
 import com.caissemagasin.vue.OrderVue;
 
 import java.util.List;

@@ -67,7 +67,7 @@ public class AdminController {
             String surname = dashboardAdminVue.scanInput("Nouveau prénom : ");
             boolean isAdmin = dashboardAdminVue.scanInput("Est-ce un admin ? (true/false) : ").equalsIgnoreCase("true");
 
-            User updatedUser = new User(user.getId(), name, surname, login, "", isAdmin, user.getActive());
+            User updatedUser = new User(user.getId(), name, surname, login, "", isAdmin, false);
             adminService.updateUser(login, updatedUser);
             dashboardAdminVue.printMessage("\n=== Utilisateur modifié avec succès ===");
         }

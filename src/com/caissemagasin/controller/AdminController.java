@@ -48,8 +48,6 @@ public class AdminController {
         } else {
             dashboardAdminVue.printMessage("\n=== Échec de la création, login déjà existant ===");
         }
-
-        dashboardAdminVue.printMenuAdmin();
     }
 
     /**
@@ -71,8 +69,6 @@ public class AdminController {
             adminService.updateUser(login, updatedUser);
             dashboardAdminVue.printMessage("\n=== Utilisateur modifié avec succès ===");
         }
-
-        dashboardAdminVue.printMenuAdmin();
     }
 
     /**
@@ -93,8 +89,6 @@ public class AdminController {
                 dashboardAdminVue.printMessage("\n=== Échec de la suppression, utilisateur non trouvé ===");
             }
         }
-
-        dashboardAdminVue.printMenuAdmin();
     }
 
     /**

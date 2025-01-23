@@ -42,7 +42,7 @@ public class DashboardUserVue extends DashboardVue implements VueFunction {
                     orderController.initiateOrder(user);
                     break;
                 case "2":
-                    orderController.searchOrder(user);
+                    orderController.searchOrder();
                     break;
                 case "3":
                     successMessage("Déconnexion réussie !");

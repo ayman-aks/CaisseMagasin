@@ -77,7 +77,7 @@ public class DashboardAdminVue extends DashboardVue implements VueFunction {
                     orderController.initiateOrder(user);
                     break;
                 case "8":
-                    orderController.searchOrder(user);
+                    orderController.searchOrder();
                     break;
                 case "9":
                     successMessage("Déconnexion réussie !");

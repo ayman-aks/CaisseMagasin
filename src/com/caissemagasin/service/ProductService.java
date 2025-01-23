@@ -61,4 +61,8 @@ public class ProductService {
     public boolean deleteProduct(String name) {
         return productRepository.deleteProduct(name);
     }
+
+    public Product findByName(String name) {
+        return productRepository.findByName(name);
+    }
 }

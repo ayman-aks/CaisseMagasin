@@ -136,12 +136,6 @@ public class OrderController {
         } else {
             orderVue.errorMessage("Erreur lors de l'enregistrement.");
         }
-
-        if (user.getAdmin()) {
-            dashboardAdminVue.printMenuAdmin();
-        }else {
-            dashboardUserVue.printMenuUser();
-        }
     }
 
     /**
@@ -158,10 +152,8 @@ public class OrderController {
     /**
      * Allows the user to search for an existing order by its ID.
      * Displays the details of the order if found.
-     *
-     * @param user The user performing the search (can be admin or regular user).
      */
-    public void searchOrder(User user) {
+    public void searchOrder() {
         orderVue.printTitle("Rechercher une commande");
         String input = orderVue.scanInput("\n" + BLUE + "🔍 Recherchez une commande par son ID :" + RESET);
         String orderToPrint = orderService.searchOrder(input);
@@ -171,11 +163,6 @@ public class OrderController {
             orderVue.printMessage(orderToPrint);
         }
         orderVue.scanInput("\n" + BLUE + "Tapez entrer pour revenir vers le menu du dashboard :" + RESET);
-        if (user.getAdmin()) {
-            dashboardAdminVue.printMenuAdmin();
-        }else{
-            dashboardUserVue.printMenuUser();
-        }
     }
 
     /**

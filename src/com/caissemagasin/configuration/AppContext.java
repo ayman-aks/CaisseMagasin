@@ -12,10 +12,7 @@ import com.caissemagasin.service.AdminService;
 import com.caissemagasin.service.LoginService;
 import com.caissemagasin.service.OrderService;
 import com.caissemagasin.service.ProductService;
-import com.caissemagasin.vue.DashboardAdminVue;
-import com.caissemagasin.vue.DashboardUserVue;
-import com.caissemagasin.vue.LoginVue;
-import com.caissemagasin.vue.OrderVue;
+import com.caissemagasin.vue.*;
 
 /**
  * AppContext is a singleton class that acts as the central configuration and dependency injection container
@@ -51,6 +48,7 @@ public class AppContext {
     private final LoginVue loginVue;
     private final OrderVue orderVue;
     private final DashboardUserVue dashboardUserVue;
+    private final ProductVue productVue;
 
     /**
      * Private constructor to initialize and wire dependencies.
@@ -73,7 +71,9 @@ public class AppContext {
         this.adminController = new AdminController(this.adminService, this.loginRepository);
         this.loginController = new LoginController(this.loginService, this.adminService);
         this.orderController = new OrderController(this.orderService);
-        this.productController = new ProductController(this.productService, this.productRepository);
+
+        this.productVue = new ProductVue();
+        this.productController = new ProductController(this.productService,this.productVue);
 
         // Initialize views with controllers
         this.dashboardAdminVue = new DashboardAdminVue(this.adminController, this.productController, this.orderController);
@@ -118,6 +118,5 @@ public class AppContext {
         this.orderController.setOrderVue(this.orderVue);
         this.orderController.setDashboardAdminVue(this.dashboardAdminVue);
         this.orderController.setDashboardUserVue(this.dashboardUserVue);
-        this.productController.setDashboardAdminVue(this.dashboardAdminVue);
     }
 }

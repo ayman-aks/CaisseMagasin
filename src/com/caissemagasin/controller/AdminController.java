@@ -57,6 +57,7 @@ public class AdminController {
      * If the user is not found, an error message is displayed.
      */
     public void updateUser() {
+        dashboardAdminVue.printTitle("Modification d'un utilisateur");
         String login = dashboardAdminVue.scanInput("\nLogin de l'utilisateur à modifier : ");
         User user = loginRepository.findByLogin(login);
         if (user == null) {
@@ -81,6 +82,7 @@ public class AdminController {
      * @param dashboardAdminVue the view instance used for input and output
      */
     public void deleteUser(DashboardAdminVue dashboardAdminVue) {
+        dashboardAdminVue.printTitle("Suppression d'un utilisateur");
         String login = dashboardAdminVue.scanInput("\nLogin de l'utilisateur à supprimer : ");
         if (login.equals(dashboardAdminVue.getUser().getLogin())) {
             dashboardAdminVue.printMessage("\n=== Échec de la suppression, vous ne pouvez pas vous auto-supprimer ===");

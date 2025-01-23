@@ -3,6 +3,7 @@ package com.caissemagasin.controller;
 import com.caissemagasin.model.User;
 import com.caissemagasin.repository.LoginRepository;
 import com.caissemagasin.service.AdminService;
+import com.caissemagasin.vue.AdminVue;
 import com.caissemagasin.vue.DashboardAdminVue;
 
 /**
@@ -14,7 +15,7 @@ public class AdminController {
 
     private AdminService adminService;
     private LoginRepository loginRepository;
-    private DashboardAdminVue dashboardAdminVue;
+    private AdminVue adminVue;
 
     /**
      * Constructs an AdminController with the specified service and repository dependencies.
@@ -22,10 +23,10 @@ public class AdminController {
      * @param adminService    the service responsible for user-related operations
      * @param loginRepository the repository responsible for accessing user data
      */
-    public AdminController(AdminService adminService, LoginRepository loginRepository) {
+    public AdminController(AdminService adminService, LoginRepository loginRepository, AdminVue adminVue) {
         this.adminService = adminService;
         this.loginRepository = loginRepository;
-        this.dashboardAdminVue = null;
+        this.adminVue = adminVue;
     }
 
     /**
@@ -33,20 +34,20 @@ public class AdminController {
      * Validates if the login is unique before saving the user.
      */
     public void createUser() {
-        dashboardAdminVue.printTitle("Création d'un nouvel utilisateur");
+        adminVue.printTitle("Création d'un nouvel utilisateur");
 
-        String name = dashboardAdminVue.scanInput("Nom : ");
-        String surname = dashboardAdminVue.scanInput("Prénom : ");
-        String login = dashboardAdminVue.scanInput("Login : ");
+        String name = adminVue.scanInput("Nom : ");
+        String surname = adminVue.scanInput("Prénom : ");
+        String login = adminVue.scanInput("Login : ");
         String password = "";
-        boolean isAdmin = dashboardAdminVue.scanInput("Est-ce un admin ? (true/false) : ").equalsIgnoreCase("true");
+        boolean isAdmin = adminVue.scanInput("Est-ce un admin ? (true/false) : ").equalsIgnoreCase("true");
 
         User newUser = new User(0, name, surname, login, password, isAdmin, false);
 
         if (adminService.saveUser(newUser)) {
-            dashboardAdminVue.printMessage("\n=== Utilisateur créé avec succès ===");
+            adminVue.printMessage("\n=== Utilisateur créé avec succès ===");
         } else {
-            dashboardAdminVue.printMessage("\n=== Échec de la création, login déjà existant ===");
+            adminVue.printMessage("\n=== Échec de la création, login déjà existant ===");
         }
     }
 
@@ -55,19 +56,19 @@ public class AdminController {
      * If the user is not found, an error message is displayed.
      */
     public void updateUser() {
-        dashboardAdminVue.printTitle("Modification d'un utilisateur");
-        String login = dashboardAdminVue.scanInput("\nLogin de l'utilisateur à modifier : ");
+        adminVue.printTitle("Modification d'un utilisateur");
+        String login = adminVue.scanInput("\nLogin de l'utilisateur à modifier : ");
         User user = loginRepository.findByLogin(login);
         if (user == null) {
-            dashboardAdminVue.printMessage("\n=== Échec de la modification, utilisateur non trouvé ===");
+            adminVue.printMessage("\n=== Échec de la modification, utilisateur non trouvé ===");
         } else {
-            String name = dashboardAdminVue.scanInput("Nouveau nom : ");
-            String surname = dashboardAdminVue.scanInput("Nouveau prénom : ");
-            boolean isAdmin = dashboardAdminVue.scanInput("Est-ce un admin ? (true/false) : ").equalsIgnoreCase("true");
+            String name = adminVue.scanInput("Nouveau nom : ");
+            String surname = adminVue.scanInput("Nouveau prénom : ");
+            boolean isAdmin = adminVue.scanInput("Est-ce un admin ? (true/false) : ").equalsIgnoreCase("true");
 
             User updatedUser = new User(user.getId(), name, surname, login, "", isAdmin, false);
             adminService.updateUser(login, updatedUser);
-            dashboardAdminVue.printMessage("\n=== Utilisateur modifié avec succès ===");
+            adminVue.printMessage("\n=== Utilisateur modifié avec succès ===");
         }
     }
 
@@ -75,28 +76,19 @@ public class AdminController {
      * Deletes a user based on their login, provided by the DashboardAdminVue.
      * Prevents the current user from self-deletion.
      *
-     * @param dashboardAdminVue the view instance used for input and output
+     * @param adminVue the view instance used for input and output
      */
-    public void deleteUser(DashboardAdminVue dashboardAdminVue) {
-        dashboardAdminVue.printTitle("Suppression d'un utilisateur");
-        String login = dashboardAdminVue.scanInput("\nLogin de l'utilisateur à supprimer : ");
-        if (login.equals(dashboardAdminVue.getUser().getLogin())) {
-            dashboardAdminVue.printMessage("\n=== Échec de la suppression, vous ne pouvez pas vous auto-supprimer ===");
+    public void deleteUser(DashboardAdminVue adminVue) {
+        adminVue.printTitle("Suppression d'un utilisateur");
+        String login = adminVue.scanInput("\nLogin de l'utilisateur à supprimer : ");
+        if (login.equals(adminVue.getUser().getLogin())) {
+            adminVue.printMessage("\n=== Échec de la suppression, vous ne pouvez pas vous auto-supprimer ===");
         } else {
             if (adminService.deleteUser(login)) {
-                dashboardAdminVue.printMessage("\n=== Utilisateur supprimé avec succès ===");
+                adminVue.printMessage("\n=== Utilisateur supprimé avec succès ===");
             } else {
-                dashboardAdminVue.printMessage("\n=== Échec de la suppression, utilisateur non trouvé ===");
+                adminVue.printMessage("\n=== Échec de la suppression, utilisateur non trouvé ===");
             }
         }
-    }
-
-    /**
-     * Sets the DashboardAdminVue instance for this controller.
-     *
-     * @param dashboardAdminVue the view instance to be set
-     */
-    public void setDashboardAdminVue(DashboardAdminVue dashboardAdminVue) {
-        this.dashboardAdminVue = dashboardAdminVue;
     }
 }

@@ -28,25 +28,13 @@ public class OrderController {
     private OrderVue orderVue;
 
     /**
-     * View for the admin dashboard.
-     */
-    private DashboardAdminVue dashboardAdminVue;
-
-    /**
-     * View for the user dashboard.
-     */
-    private DashboardUserVue dashboardUserVue;
-
-    /**
      * Constructs an OrderController with a given order service.
      *
      * @param orderService Service to manage orders and related operations.
      */
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService,OrderVue orderVue) {
         this.orderService = orderService;
-        this.orderVue = null;
-        this.dashboardAdminVue = null;
-        this.dashboardUserVue = null;
+        this.orderVue = orderVue;
     }
 
     /**
@@ -165,30 +153,4 @@ public class OrderController {
         orderVue.scanInput("\n" + BLUE + "Tapez entrer pour revenir vers le menu du dashboard :" + RESET);
     }
 
-    /**
-     * Sets the view for order-related interactions.
-     *
-     * @param orderVue The view to use for displaying order-related information.
-     */
-    public void setOrderVue(OrderVue orderVue) {
-        this.orderVue = orderVue;
-    }
-
-    /**
-     * Sets the view for the admin dashboard.
-     *
-     * @param dashboardAdminVue The view to use for the admin dashboard.
-     */
-    public void setDashboardAdminVue(DashboardAdminVue dashboardAdminVue) {
-        this.dashboardAdminVue = dashboardAdminVue;
-    }
-
-    /**
-     * Sets the view for the user dashboard.
-     *
-     * @param dashboardUserVue The view to use for the user dashboard.
-     */
-    public void setDashboardUserVue(DashboardUserVue dashboardUserVue) {
-        this.dashboardUserVue = dashboardUserVue;
-    }
 }

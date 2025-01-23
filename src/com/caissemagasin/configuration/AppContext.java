@@ -49,6 +49,7 @@ public class AppContext {
     private final OrderVue orderVue;
     private final DashboardUserVue dashboardUserVue;
     private final ProductVue productVue;
+    private final AdminVue adminVue;
 
     /**
      * Private constructor to initialize and wire dependencies.
@@ -68,17 +69,19 @@ public class AppContext {
         this.productService = new ProductService(this.productRepository);
 
         // Initialize controllers with dependencies
-        this.adminController = new AdminController(this.adminService, this.loginRepository);
         this.loginController = new LoginController(this.loginService, this.adminService);
-        this.orderController = new OrderController(this.orderService);
+        this.orderVue = new OrderVue();
+        this.orderController = new OrderController(this.orderService,this.orderVue);
 
         this.productVue = new ProductVue();
         this.productController = new ProductController(this.productService,this.productVue);
 
+        this.adminVue = new AdminVue();
+        this.adminController = new AdminController(this.adminService, this.loginRepository,this.adminVue);
+
         // Initialize views with controllers
         this.dashboardAdminVue = new DashboardAdminVue(this.adminController, this.productController, this.orderController);
         this.loginVue = new LoginVue(this.loginController);
-        this.orderVue = new OrderVue();
         this.dashboardUserVue = new DashboardUserVue(this.orderController);
 
         // Configure views with their corresponding controllers
@@ -111,12 +114,9 @@ public class AppContext {
      * Configures the views by setting the required controller instances.
      */
     private void hydrateViews() {
-        this.adminController.setDashboardAdminVue(this.dashboardAdminVue);
         this.loginController.setLoginVue(this.loginVue);
         this.loginController.setDashboardAdminVue(this.dashboardAdminVue);
         this.loginController.setDashboardUserVue(this.dashboardUserVue);
-        this.orderController.setOrderVue(this.orderVue);
-        this.orderController.setDashboardAdminVue(this.dashboardAdminVue);
-        this.orderController.setDashboardUserVue(this.dashboardUserVue);
+
     }
 }

@@ -41,7 +41,7 @@ public class OrderController {
      *
      * @param user The user initiating the order (can be admin or regular user).
      */
-
+    @SuppressWarnings("unchecked")
     public void initiateOrder(User user) {
         Order order = orderService.createNewOrder();
         orderVue.printTitle("NOUVELLE COMMANDE");
